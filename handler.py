@@ -60,4 +60,15 @@ class Connection(object):
         win = app.window(title_re='.*{}'.format(self.app_title))
         win.maximize()
         return win
-    
+
+class Utility():
+
+    @staticmethod
+    def is_null(data):
+        if data is None:
+            return True
+        elif not data.strip():
+            return True
+        else:
+            return False
+ 
