@@ -1,6 +1,7 @@
 from pywinauto import application
 import pywinauto.mouse as mouse
 import pywinauto.keyboard as keyboard
+import pyautogui as pya
 import win32clipboard
 import ctypes
 import datetime
@@ -9,22 +10,22 @@ class Event(object):
     
     @staticmethod
     def mouse_move(x,y):
-        mouse.move(coords=(x,y))
+        pya.moveTo(x,y)
 
     @staticmethod
-    def click(x,y,butn='left'):
+    def click(x,y):
         Event.mouse_move(x,y)
-        mouse.click(button=butn,coords=(x,y))
+        pya.click(x,y)
     
     @staticmethod
     def dclick(x,y):
         Event.mouse_move(x,y)
-        mouse.double_click(button='left',coords=(x,y))
+        pya.doubleClick(x,y)
 
     @staticmethod
     def rclick(x,y):
         Event.mouse_move(x,y)
-        mouse.right_click(coords=(x,y))
+        pya.click(x,y,button='right')
 
     @staticmethod
     def send_keys(k):
@@ -48,6 +49,15 @@ class Event(object):
     @staticmethod
     def focus(window):
         window.set_focus()
+
+    @staticmethod
+    def snap_location(snap):
+        return pya.locateOnScreen(snap)
+    
+    @staticmethod
+    def click_snap(snap_location):
+        formx, formy = pya.center(snap_location)
+        pya.click(formx, formy)
 
     @staticmethod
     def capture_screen(window):

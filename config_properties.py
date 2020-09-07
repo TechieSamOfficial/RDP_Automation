@@ -15,7 +15,9 @@ properties = {
         'xadd_note' : 359,
         'yadd_note' : 644,
         'xupdate' : 95,
-        'yupdate' : 187
+        'yupdate' : 187,
+        'xblank': 446,
+        'yblank' : 348
     }
     
 }
