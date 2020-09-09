@@ -31,73 +31,76 @@ class Prospect(AbstractService):
     def search_element(self, element):
         # Prospects screen
         time.sleep(2)
-        Event.click(self.xsearch,self.ysearch)
+        Event.click(self.win, self.xsearch,self.ysearch)
         time.sleep(2)
+        # Event.send_keys(element)
         Event.type_keys(self.win, element)
         time.sleep(10)
 
     def validate_date(self):
         # Prospects screen
-        Event.click(443, 349)
-        time.sleep(2)
-        Event.click(414, 407)
-        time.sleep(2)
-        Event.click(self.xcontact_date,self.ycontact_date)
-        time.sleep(2)
-        Event.rclick(self.xcontact_date,self.ycontact_date)
-        time.sleep(2)
-        Event.click(408,495)
-        time.sleep(2)
-        Event.rclick(self.xcontact_date,self.ycontact_date)
-        time.sleep(2)
-        Event.click(self.xcopy1,self.ycopy1)
-        time.sleep(2)
-        nxt_contact_date = Event.get_clipboard_data()
-
-        Event.click(self.xappointment_date,self.yappointment_date)
-        time.sleep(3)
-        Event.rclick(self.xappointment_date,self.yappointment_date)
-        time.sleep(3)
-        Event.click(649,495)
-        time.sleep(2)
-        Event.rclick(self.xappointment_date,self.yappointment_date)
-        time.sleep(2)
-        Event.click(self.xcopy2,self.ycopy2)
-        time.sleep(3)
-        nxt_appointment_date = Event.get_clipboard_data()
-        time.sleep(2)
-
+        # Event.click(443, 349)
+        # time.sleep(2)
+        # Event.click(414, 407)
+        # time.sleep(2)
         # Event.click(self.xcontact_date,self.ycontact_date)
-        # time.sleep(3)
-        # Event.dclick(self.xcontact_date,self.ycontact_date)
-        # time.sleep(3)
+        # time.sleep(2)
         # Event.rclick(self.xcontact_date,self.ycontact_date)
-        # time.sleep(3)
+        # time.sleep(2)
+        # Event.click(408,495)
+        # time.sleep(2)
+        # Event.rclick(self.xcontact_date,self.ycontact_date)
+        # time.sleep(2)
         # Event.click(self.xcopy1,self.ycopy1)
-        # time.sleep(3)
+        # time.sleep(2)
         # nxt_contact_date = Event.get_clipboard_data()
+
         # Event.click(self.xappointment_date,self.yappointment_date)
-        # time.sleep(3)
-        # Event.dclick(self.xappointment_date,self.yappointment_date)
         # time.sleep(3)
         # Event.rclick(self.xappointment_date,self.yappointment_date)
         # time.sleep(3)
+        # Event.click(649,495)
+        # time.sleep(2)
+        # Event.rclick(self.xappointment_date,self.yappointment_date)
+        # time.sleep(2)
         # Event.click(self.xcopy2,self.ycopy2)
         # time.sleep(3)
         # nxt_appointment_date = Event.get_clipboard_data()
-        # time.sleep(2)
+        time.sleep(2)
 
-        if nxt_appointment_date == '00/00/00' or nxt_contact_date == '00/00/00':
-            return False
-        else:
-            return True
+        # if nxt_appointment_date == '00/00/00' or nxt_contact_date == '00/00/00':
+        #     return False
+        # else:
+        #     return True
 
     def update_date(self):
-        Event.click(self.xmodify_date,self.ymodify_date) # Click on Modify Date button
+        # Event.click(self.xmodify_date,self.ymodify_date) # Click on Modify Date button
+        # time.sleep(3)
+        # # Modify Contact & appointment Dates screen
+        # Event.click(152,98)
+        # time.sleep(3)
+        # Event.type_keys(self.win, '000000')
+        # time.sleep(3)
+        # Event.send_keys("{TAB 2}")
+        # time.sleep(3)
+        # Event.type_keys(self.win, '0000')
+        # time.sleep(3)
+        # Event.send_keys("{TAB 2}")
+        # time.sleep(3)
+        # Event.type_keys(self.win, '000000')
+        # time.sleep(3)
+        # Event.send_keys("{TAB 2}")
+        # time.sleep(3)
+        # Event.type_keys(self.win, '0000')
+        # time.sleep(3)
+        # Event.click(self.xupdate,self.yupdate)
         time.sleep(3)
+
+    def update_date_screen(self):
         # Modify Contact & appointment Dates screen
-        Event.click(152,98)
-        time.sleep(3)
+        # Event.click(152,98)
+        self.win.set_focus()
+        time.sleep(2)
         Event.type_keys(self.win, '000000')
         time.sleep(3)
         Event.send_keys("{TAB 2}")
@@ -112,22 +115,30 @@ class Prospect(AbstractService):
         time.sleep(3)
         Event.type_keys(self.win, '0000')
         time.sleep(3)
-        Event.click(self.xupdate,self.yupdate)
+        Event.click(self.win, self.xupdate,self.yupdate)
         time.sleep(3)
 
     def add_notes(self, notes):
-        Event.click(self.xadd_note, self.yadd_note)
+        self.win.set_focus()
+        Event.real_click(self.win, self.xblank, self.yblank)
+        time.sleep(2)
+        Event.real_click(self.win, self.xadd_note, self.yadd_note)
         time.sleep(3)
+        # Event.send_keys(notes)
+        self.win.set_focus()
         Event.type_keys(self.win, notes)
         time.sleep(3)
-        Event.click(self.xblank, self.yblank)
+        Event.real_click(self.win, self.xblank, self.yblank)
         time.sleep(2)
 
     def date_modify(self, snap):
+        self.win.set_focus()
         pop_up = Event.snap_location(snap)
         time.sleep(3)
         if pop_up is None:
             print("No Pop up, Date modification not needed")
+            return False
         else:
             Event.click_snap(pop_up)
             time.sleep(2)
+            return True

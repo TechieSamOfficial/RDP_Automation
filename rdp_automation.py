@@ -29,11 +29,20 @@ try:
         prospect_obj.search_element(search_element)
         print("Search Complete")
 
-        if prospect_obj.validate_date():
-            prospect_obj.update_date()
-            print("Updated the Dates.")
+        prospect_obj.add_notes(notes_to_add)
+        time.sleep(2)
+
+        if prospect_obj.date_modify('date_screen_ok.png'):
+            print("Update Date Screen")
+            prospect_obj.update_date_screen()
         else:
-            print("No Need to Update Date.")
+            print("No Need to Update Date")
+
+        # if prospect_obj.validate_date():
+        #     prospect_obj.update_date()
+        #     print("Updated the Dates.")
+        # else:
+        #     print("No Need to Update Date.")
 
    
     # Event.click(143,262)

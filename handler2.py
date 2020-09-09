@@ -4,18 +4,38 @@ import pywinauto.keyboard as keyboard
 import pyautogui as pya
 import win32clipboard
 import ctypes
+import time
 import datetime
 
 class Event(object):
+
+    # def __init__():
+    #     pya.PAUSE = 0.5
     
-    @staticmethod
-    def mouse_move(x,y):
-        pya.moveTo(x,y)
+    # @staticmethod
+    # def mouse_move(x,y):
+    #     pya.moveTo(x,y)
+
+    # @staticmethod
+    # def click(x,y):
+    #     Event.mouse_move(x,y)
+    #     pya.mouseDown(x,y)
+    #     time.sleep(1.5)
+    #     pya.mouseUp(x,y)
 
     @staticmethod
-    def click(x,y):
+    def mouse_move(x,y):
+        mouse.move(coords=(x,y))
+
+    @staticmethod
+    def real_click(window, x,y,butn='left'):
         Event.mouse_move(x,y)
-        pya.click(x,y)
+        window.click_input(button=butn,coords=(x,y), absolute = True)
+
+    @staticmethod
+    def click(window, x,y,butn='left'):
+        Event.mouse_move(x,y)
+        mouse.click(button=butn,coords=(x,y))
     
     @staticmethod
     def dclick(x,y):
@@ -29,7 +49,7 @@ class Event(object):
 
     @staticmethod
     def send_keys(k):
-        keyboard.send_keys(k)
+        keyboard.send_keys(k, with_spaces=True, pause=0.1)
 
     @staticmethod
     def get_clipboard_data():
@@ -43,8 +63,9 @@ class Event(object):
         ctypes.windll.user32.MessageBoxW(0, u"{}".format(msg), u"{}".format(type), 0)
 
     @staticmethod
-    def type_keys(window, k):
-        window.type_keys(k, with_spaces=True)
+    def type_keys(window, k, forground=False):
+        window.type_keys
+        window.type_keys(k, with_spaces=True, pause=0.1, set_foreground=forground)
     
     @staticmethod
     def focus(window):
